@@ -1,7 +1,6 @@
 import static org.junit.Assert.*; // external jar, used for failed cases 
-
-import java.util.ArrayList;
-import java.util.List;
+import javax.swing.JButton;
+import javax.swing.JFrame;
 
 import org.junit.Test;
 
@@ -12,10 +11,12 @@ public class GameTicTacTest {
 	@Test
 	public void test() throws BoardErrorException {
 
-		Game choice = new Game(); //object of the Game board 
+
+		JFrame frame = null;
+		Game choice = new Game(frame); //object of the Game board 
 
 
-		assertEquals('X', choice.userTurn); // we can use this method for writing test 
+		assertEquals('X', choice.getUserTurn()); // we can use this method for writing test 
 		//only the failed test are recorded 
 		// here we are testing the users turn , marked by the char " x " 
 
@@ -30,11 +31,11 @@ public class GameTicTacTest {
 
 		Game choice = null;
 		try {
-			choice = new Game().userMove(1);
+			choice = new Game(null).userMove(1);
 		} catch (BoardErrorException e) {
 			e.printStackTrace();
 		} // after the first move, i.e X just went 
-		assertEquals('O', choice.userTurn); // next Turn should not be a O, once the user X goes 
+		assertEquals('O', choice.getUserTurn()); // next Turn should not be a O, once the user X goes 
 		assertEquals(" X       ", choice.toString()); // what the board looks like now after an X has been inserted and now it is 
 		// O turn
 		// note to self, every move must have a space after quote
@@ -42,45 +43,34 @@ public class GameTicTacTest {
 
 	}
 
-	@Test 
-	public void testMovesCanTake() throws NoMoreMovesException, BoardErrorException, UserMoveErrorExcepion{
 
-		//testing the method  MovesCanTake
-
-		List<Integer> numberValue = new ArrayList<>(); // integerList 
-		// basically every space has a value 
-		//since we can not only use Strings to define the spaces
-		// determine spaces by the value of that space
-
-
-		for(int i =0;i<Game.sizeOfBoard;i++){ // looping through the board at every space 
-			numberValue.add(i); // every space now has a integer value 
-		}
-
-		numberValue.remove(new Integer(1)); 
-		// removes the value of the space that the user made, the object created 
-		// i.e at the space X was made, so it can not be made again so we are going to remove it 
-		// from the list, i.e that space also gets remove 
-
-		//	try {
-		assertEquals(numberValue, new Game().userMove(1).MovesCanTake());
-	} //catch (BoardErrorException e) {
-	//e.printStackTrace();
-	//}
-
+	@SuppressWarnings({ "unused", "static-access" })
 	@Test
-	public void testWinner() throws WinnerErrorException, BoardErrorException{ // testing to ensure there can be a winner
+	public void testWinner() throws WinnerErrorException, BoardErrorException, ButtonsNotMadeException, ButtonCanNotBeClickedException{ // testing to ensure there can be a winner
 
-		Game choice = new Game(); //object of the Game board 
-
-		choice = new Game().winner();
+		JFrame frame = null;
+		Game choice = new Game(frame); //object of the Game board 
+		GUI gui = new GUI();
 
 		// assertEquals("XXX      ",choice.winner() ); // should return a winner
-		//testing the board the ensure that winner works 
-		//
-		 
-		 choice.winner();
-		 
+		//testing the boardtemplateOfBoard[0] = 'X';
+
+		choice.getBoard()[0] = 'X';
+		choice.getBoard()[1] = 'X';
+		choice.getBoard()[2] = 'X';
+		choice.getBoard()[3] = 'X';
+		choice.getBoard()[4] = 'X';
+		choice.getBoard()[5] = 'X';
+		choice.getBoard()[6] = 'O';
+		choice.getBoard()[7] = 'X';
+		choice.getBoard()[8] = 'O';  
+		
+		for(int i =0; i<gui.sizeOfBoard;i++){ // going to fill the board with clickableButtons by looping through every index and placing a button there 
+			final int move = i;
+
+			gui.clickButton[i] = new JButton(); // at a certain index there is a new button 
+		}
+		gui.choice.winner(); //the ensure that winner works
 	}
 }
 
