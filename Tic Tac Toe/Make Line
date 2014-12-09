@@ -1,0 +1,56 @@
+for(int i = 0;i<win.length;i++){	 
+			// looping through the win possibilities 
+	
+			if(win[i] == 264){ // if one of the the combinations equal 'X','X','X' which equals 264, then there is a winner 
+				System.out.println("X is the winner!!!");	
+				System.out.println("Game Over!");
+				draw(i);
+		
+				try {
+					gameOver("X is the Winner");
+				} catch (CouldNotPlayAgainException | NoCancelOption e) {
+					e.printStackTrace();
+				}
+				
+				return this; // if statement is true, it will return this(gameOver)
+			}
+			
+			
+			
+			private void draw(int win){
+
+		Graphics2D g1 = (Graphics2D) frame.getGraphics();
+		if(win == 0){
+			g1.setStroke(new BasicStroke(8));
+			g1.drawLine(0,104,500,104);
+		}
+		else if(win == 1){
+			g1.setStroke(new BasicStroke(8));
+			g1.drawLine(0,257,500,257);
+		}
+		else if(win == 2){
+			g1.setStroke(new BasicStroke(8));
+			g1.drawLine(0,411,500,411);	
+		}
+		else if(win == 3){
+			g1.setStroke(new BasicStroke(8));
+			g1.drawLine(88,0,88,500);	
+		}
+		else if(win == 4){
+			g1.setStroke(new BasicStroke(8));
+			g1.drawLine(250,0,250,500);
+		}
+		else if(win == 5){
+			g1.setStroke(new BasicStroke(8));
+			g1.drawLine(411,0,411,500);
+		}
+		else if(win == 6){
+			g1.setStroke(new BasicStroke(8));
+			g1.drawLine(-22,0,500,500);
+			
+		}
+		else if(win == 7){
+			g1.setStroke(new BasicStroke(8));
+			g1.drawLine(520,0,0,500);
+		}
+	}
